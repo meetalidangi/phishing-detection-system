@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhishGuard – AI Phishing Detector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ── background grid ─────────────────────────────────────────────────── -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <!-- ── header ──────────────────────────────────────────────────────────── -->
+  <header>
+    <div class="logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">PhishGuard</span>
+    </div>
+    <p class="tagline">AI-powered URL threat intelligence</p>
+  </header>
+
+  <!-- ── main card ───────────────────────────────────────────────────────── -->
+  <main>
+    <section class="card" id="scanner">
+      <h1>Scan a URL</h1>
+      <p class="subtitle">Paste any URL below to instantly check if it's phishing or safe.</p>
+
+      <div class="input-row">
+        <div class="input-wrap">
+          <span class="input-prefix">URL›</span>
+          <input
+            id="urlInput"
+            type="text"
+            placeholder="https://example.com/login"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <button id="scanBtn" onclick="scanURL()">
+          <span class="btn-text">Scan</span>
+          <span class="btn-icon">→</span>
+        </button>
+      </div>
+
+      <div class="examples">
+        <span>Try:</span>
+        <button class="example-chip" onclick="fillExample('https://www.google.com/search?q=weather')">google.com</button>
+        <button class="example-chip" onclick="fillExample('http://secure-paypal-login.xyz/verify?redirect=true')">fake PayPal</button>
+        <button class="example-chip" onclick="fillExample('http://192.168.1.1/phishing/steal')">IP-based URL</button>
+      </div>
+    </section>
+
+    <!-- ── result panel (hidden until scan) ──────────────────────────────── -->
+    <section class="card result-card hidden" id="resultPanel">
+
+      <!-- verdict badge -->
+      <div class="verdict-row">
+        <div class="verdict-badge" id="verdictBadge">
+          <span class="verdict-icon" id="verdictIcon"></span>
+          <span class="verdict-label" id="verdictLabel"></span>
+        </div>
+        <div class="confidence-box">
+          <span class="conf-label">Model confidence</span>
+          <span class="conf-value" id="confValue">—</span>
+        </div>
+      </div>
+
+      <!-- probability bars -->
+      <div class="prob-bars">
+        <div class="prob-row">
+          <span class="prob-name legit-color">Legitimate</span>
+          <div class="bar-track">
+            <div class="bar-fill legit-fill" id="legitBar"></div>
+          </div>
+          <span class="prob-pct" id="legitPct">—</span>
+        </div>
+        <div class="prob-row">
+          <span class="prob-name phish-color">Phishing</span>
+          <div class="bar-track">
+            <div class="bar-fill phish-fill" id="phishBar"></div>
+          </div>
+          <span class="prob-pct" id="phishPct">—</span>
+        </div>
+      </div>
+
+      <!-- scanned URL -->
+      <div class="scanned-url">
+        <span class="sl-label">Scanned URL</span>
+        <span class="sl-value" id="scannedURL"></span>
+      </div>
+
+      <!-- explanation toggle -->
+      <button class="explain-toggle" id="explainToggle" onclick="toggleExplanation()">
+        Show explanation ▾
+      </button>
+
+      <!-- explanation panel -->
+      <div class="explanation hidden" id="explanationPanel">
+        <div class="risk-meter">
+          <span>Rule-based risk score</span>
+          <div class="risk-track">
+            <div class="risk-fill" id="riskFill"></div>
+          </div>
+          <span id="riskScore" class="risk-num">0</span>
+        </div>
+
+        <div class="signal-cols">
+          <div class="signal-col">
+            <h3 class="col-title warn-title">⚠ Suspicious signals</h3>
+            <ul id="reasonsList" class="signal-list"></ul>
+          </div>
+          <div class="signal-col">
+            <h3 class="col-title safe-title">✓ Safe signals</h3>
+            <ul id="safeList" class="signal-list"></ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── loader ─────────────────────────────────────────────────────────── -->
+    <div class="loader hidden" id="loader">
+      <div class="spinner"></div>
+      <p>Analysing URL…</p>
+    </div>
+
+    <!-- ── error toast ─────────────────────────────────────────────────────── -->
+    <div class="toast hidden" id="errorToast"></div>
+
+  </main>
+
+  <!-- ── footer ─────────────────────────────────────────────────────────── -->
+  <footer>
+    <p>PhishGuard · Random Forest ML · Built with Python + Flask</p>
+  </footer>
+
+  <script src="/static/js/script.js"></script>
+</body>
+</html>
