@@ -2,22 +2,29 @@
 
 ## 📌 Overview
 
-This project is a machine learning-based web application that detects whether a given URL is **phishing or legitimate**. It uses feature extraction techniques and a **Random Forest classifier** to identify suspicious patterns in URLs.
+This project is a machine learning-based web application designed to detect whether a given URL is **phishing or legitimate**.
 
+It analyzes structural and lexical patterns in URLs using feature extraction techniques and applies a **Random Forest classifier** to identify suspicious behavior.
+
+The system not only predicts the result but also provides **clear explanations**, making it more transparent and user-friendly.
+
+---
 
 ## 🌐 Live Demo
 
 👉 https://phishing-detection-system-a6qe.onrender.com/
 
+---
 
 ## 🚀 Features
 
 * 🔍 Real-time phishing URL detection
-* 🧠 Machine Learning model (Random Forest)
+* 🧠 Machine Learning model (Random Forest with multiple decision trees)
 * 📊 Confidence score for predictions
-* 📝 Explanation of results (why URL is flagged)
-* 🌐 User-friendly web interface
+* 📝 Explanation of results (why a URL is flagged)
+* 🌐 Clean and user-friendly web interface
 
+---
 
 ## 🛠️ Tech Stack
 
@@ -27,17 +34,18 @@ This project is a machine learning-based web application that detects whether a 
 * **Frontend:** HTML, CSS, JavaScript
 * **Deployment:** Render
 
+---
 
 ## 📂 Project Structure
 
 ```
 phishguard/
 │
-├── app.py                 # Flask backend
-├── train_model.py         # Model training script
-├── features.py            # Feature extraction logic
-├── explain.py             # Explanation engine
-├── requirements.txt       # Dependencies
+├── app.py                 # Flask backend (handles requests & responses)
+├── train_model.py         # Model training and evaluation
+├── features.py            # URL feature extraction logic
+├── explain.py             # Rule-based explanation engine
+├── requirements.txt       # Project dependencies
 │
 ├── model/
 │   └── phishing_model.pkl # Trained ML model
@@ -46,13 +54,14 @@ phishguard/
 │   └── generate_dataset.py
 │
 ├── templates/
-│   └── index.html
+│   └── index.html         # Frontend UI
 │
 └── static/
     ├── css/style.css
     └── js/script.js
 ```
 
+---
 
 ## ▶️ How to Run Locally
 
@@ -69,7 +78,7 @@ cd phishing-detection-system/phishguard
 pip install -r requirements.txt
 ```
 
-3. Train the model (if needed):
+3. Train the model (if required):
 
 ```
 python train_model.py
@@ -105,20 +114,27 @@ Phishing (High Confidence)
 
 ---
 
-## ⚠️ Limitations
+## ⚠️ Limitations & Scope
 
-* Depends on dataset quality
-* Cannot detect all zero-day phishing attacks
-* Uses only URL-based features (no email/content analysis yet)
+* The system analyzes URLs **only based on structural and lexical features**
+* It does **not verify domain authenticity** against official or trusted sources
+* It may classify visually similar domains (e.g., `googel.com`) as legitimate if they do not exhibit strong suspicious patterns
+* It does not include email/content-based phishing detection
+* Performance depends on dataset quality
 
+👉 This project demonstrates **pattern-based phishing detection**, which is one layer of real-world cybersecurity systems.
+
+---
 
 ## 🔮 Future Improvements
 
+* 🔐 Trusted domain verification (banking/e-commerce whitelists)
+* 🧠 Domain similarity detection (typosquatting detection like `amazom.com`)
+* 🌍 Integration with real-time threat intelligence APIs
 * 📧 Email phishing detection using NLP
-* 🌍 Real-time threat intelligence APIs
-* 📈 Improved dataset for higher accuracy
-* 📊 Visualization dashboard
+* 📊 Advanced dashboard and analytics
 
+---
 
 ## 👩‍💻 Author
 
